@@ -2,7 +2,7 @@ import {Request, Response, Router} from "express";
 import Usecase from "./usecase";
 
 class UserDelivery {
-    public routerHandler : Router;
+    public routerHandler: Router;
     constructor() {
         this.routerHandler = Router();
         this.initGetAll();
@@ -11,8 +11,8 @@ class UserDelivery {
     public initGetAll() {
         this
             .routerHandler
-            .get("/", async(req : Request, res : Response) => {
-                const userUsecase : Usecase = new Usecase();
+            .get("/", async (req: Request, res: Response) => {
+                const userUsecase: Usecase = new Usecase();
                 const users = await userUsecase.GetAll();
                 return res
                     .status(200)

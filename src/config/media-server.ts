@@ -1,4 +1,4 @@
-import NodeMediaServer from 'node-media-server';
+import NodeMediaServer from "node-media-server";
 
 function initMediaServer() {
     const nms = new NodeMediaServer({
@@ -10,11 +10,11 @@ function initMediaServer() {
             ping_timeout: 60
         },
         http: {
-            port: 8000,
-            mediaroot: './media',
-            allow_origin: '*'
+            port: 3000,
+            mediaroot: "./media",
+            allow_origin: "*"
         }
-    })
+    });
     return nms;
 }
 

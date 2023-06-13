@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-function initMongoDB(callback : () => void) {
+function initMongoDB(callback: () => void) {
     const MONGO_USER = process.env.MONGO_USER;
     const MONGO_PASS = process.env.MONGO_PASS;
 

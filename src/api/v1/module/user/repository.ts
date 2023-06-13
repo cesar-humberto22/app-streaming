@@ -1,12 +1,12 @@
 import User from "./model";
 
 interface IResultRepository {
-    data : any;
-    errorRepo : any;
+    data: any;
+    errorRepo: any;
 }
 
 class UserRepository {
-    public async GetAll() : Promise < IResultRepository > {
+    public async GetAll(): Promise < IResultRepository > {
         const result: IResultRepository = {
             errorRepo: null,
             data: null

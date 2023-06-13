@@ -1,11 +1,27 @@
 <div x-data="streaming" class="relative flex space-x-2 w-full h-full bg-gray-100">
-    <div class="w-24 px-1 border-r border-gray-200 shadow-inner flex-shrink-0 h-full mb-4 flex justify-center items-center">
+    <div class="w-44 px-1 border-r border-gray-200 shadow-inner flex-shrink-0 h-full mb-4 flex justify-center items-center">
 
-        <div class="splide overflow-hidden w-full h-full flex">
+        <div id="slide2" class="splide overflow-hidden w-full h-full flex">
             <div class="splide__track">
-                <ul class="h-full flex flex-col splide__list">
-                    <template x-for="(imagen, index) in arrayImages" :key="index">
-                        <li class="splide__slide">
+                <ul class="h-full flex justify-center flex-col splide__list">
+                    <template x-for="i in 10">
+                        <li class="splide__slide flex justify-center">
+                            <img x-bind:src="arrayImages[i]">
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="w-44 px-1 border-r border-gray-200 shadow-inner flex-shrink-0 h-full mb-4 flex justify-center items-center">
+
+        <div id="slide1" class="splide overflow-hidden w-full h-full flex">
+            <div class="splide__track">
+                <ul class="h-full flex justify-center flex-col splide__list">
+                    <template x-for="imagen in arrayImages">
+                        <li class="splide__slide flex justify-center">
                             <img x-bind:src="imagen">
                         </li>
                     </template>
@@ -21,14 +37,14 @@
 
                 <div class="pantalla w-full shadow-lg overflow-hidden rounded-lg  h-full flex bg-black bg-opacity-95 justify-center items-center flex-col">
                     <video class="w-full h-full" 
-                        :class="!isPlay? ' hidden ': ''" id="videoElement"></video>
+                        :class="!isPlay && !buttonDisables? ' hidden ': ''" id="videoElement"></video>
                     <button @click="playVideo" class="text-white py-2 px-4 border border-gray-500 hover:bg-gray-950 hover:shadow-lg transition-all rounded-md" 
-                        :class="isPlay? ' hidden ': ''" id="button2">Iniciar transmisión</button>
+                        :class="isPlay || buttonDisables? ' hidden ': ''" id="button2">Iniciar transmisión</button>
                 </div>
                 
             </div>
         </div>
-        <div class="h-20 transform -translate-y-1 flex-shrink-0">
+        <div class="h-20 flex transform -translate-y-1 flex-shrink-0">
             <div class="px-2 py-1 w-full flex justify-start items-end rounded-lg">
                 <span class="text-7xl" x-text="horaActual.h"></span>
                 <span class="text-7xl">:</span>
@@ -37,7 +53,20 @@
                 <span class="text-6xl" x-text="horaActual.s"></span>
                 <span class="text-3xl ml-2 uppercase" x-text="horaActual.p"></span>
             </div>
+            <div class="flex items-center justify-center">
+                <img class="w-56 mr-2 transform translate-y-0.5" src="https://www.meteored.mx/css/images/svg/newSymbols/2.svg" width="60px" height="60px" alt="Intervalos nubosos">
+                <span class="w-full clima text-7xl mr-1" x-text="29"></span>
+                <div class="flex h-full">
+                    <span class="clima font-bold" x-text="30"></span>
+                    <span class="mx-1">/</span>
+                    <span class="clima font-bold" x-text="20"></span>
+                </div>
+            </div>
         </div>
+
+        <select name="" id="">
+            <option value=""></option>
+        </select>
 
     </div>
 </div>
@@ -56,33 +85,34 @@
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('streaming', () => ({
+            buttonDisables: "{{buttonDisables}}" === "true",
             arrayImages: [
-                "http://192.168.0.185:8080/public/images/1.png",
-                "http://192.168.0.185:8080/public/images/2.png",
-                "http://192.168.0.185:8080/public/images/3.png",
-                "http://192.168.0.185:8080/public/images/4.png",
-                "http://192.168.0.185:8080/public/images/5.png",
-                "http://192.168.0.185:8080/public/images/6.png",
-                "http://192.168.0.185:8080/public/images/7.png",
-                "http://192.168.0.185:8080/public/images/8.png",
-                "http://192.168.0.185:8080/public/images/9.png",
-                "http://192.168.0.185:8080/public/images/10.png",
-                "http://192.168.0.185:8080/public/images/11.png",
-                "http://192.168.0.185:8080/public/images/12.png",
-                "http://192.168.0.185:8080/public/images/13.png",
-                "http://192.168.0.185:8080/public/images/1.png",
-                "http://192.168.0.185:8080/public/images/2.png",
-                "http://192.168.0.185:8080/public/images/3.png",
-                "http://192.168.0.185:8080/public/images/4.png",
-                "http://192.168.0.185:8080/public/images/5.png",
-                "http://192.168.0.185:8080/public/images/6.png",
-                "http://192.168.0.185:8080/public/images/7.png",
-                "http://192.168.0.185:8080/public/images/8.png",
-                "http://192.168.0.185:8080/public/images/9.png",
-                "http://192.168.0.185:8080/public/images/10.png",
-                "http://192.168.0.185:8080/public/images/11.png",
-                "http://192.168.0.185:8080/public/images/12.png",
-                "http://192.168.0.185:8080/public/images/13.png"
+                "http://localhost:8080/public/images/1.png",
+                "http://localhost:8080/public/images/2.png",
+                "http://localhost:8080/public/images/3.png",
+                "http://localhost:8080/public/images/4.png",
+                "http://localhost:8080/public/images/5.png",
+                "http://localhost:8080/public/images/6.png",
+                "http://localhost:8080/public/images/7.png",
+                "http://localhost:8080/public/images/8.png",
+                "http://localhost:8080/public/images/9.png",
+                "http://localhost:8080/public/images/10.png",
+                "http://localhost:8080/public/images/11.png",
+                "http://localhost:8080/public/images/12.png",
+                "http://localhost:8080/public/images/13.png",
+                "http://localhost:8080/public/images/1.png",
+                "http://localhost:8080/public/images/2.png",
+                "http://localhost:8080/public/images/3.png",
+                "http://localhost:8080/public/images/4.png",
+                "http://localhost:8080/public/images/5.png",
+                "http://localhost:8080/public/images/6.png",
+                "http://localhost:8080/public/images/7.png",
+                "http://localhost:8080/public/images/8.png",
+                "http://localhost:8080/public/images/9.png",
+                "http://localhost:8080/public/images/10.png",
+                "http://localhost:8080/public/images/11.png",
+                "http://localhost:8080/public/images/12.png",
+                "http://localhost:8080/public/images/13.png"
             ],
             flvPlayer: null,
             isPlay: false,
@@ -92,6 +122,7 @@
                 s: 00,
                 p: 'am'
             },
+            climate: null,
 
             init(){
                 if (flvjs.isSupported()) {
@@ -99,13 +130,19 @@
                     this.loadClima()
                     this.intervalTime()
 
+                    if(this.buttonDisables){
+                        this.isPlay = true;
+                        this.flvPlayer.load();
+                        this.flvPlayer.play();
+                    }
+
                     setTimeout(() => this.loadSlider(), 10)
                     setInterval(() => this.intervalTime(), 1000)
                 }
             },
 
             loadSlider(){
-                const splide = new Splide(".splide", {
+                const splide = new Splide("#slide1", {
                     type: 'loop',
                     direction: 'ttb',
                     height: '100%',
@@ -116,13 +153,26 @@
                     arrows: false
                 });
                 splide.mount();
+
+                const splide2 = new Splide("#slide2", {
+                    type: 'loop',
+                    direction: 'ttb',
+                    height: '100%',
+                    perPage: 10,
+                    perMove: 1,
+                    speed: 700,
+                    autoplay: true,
+                    arrows: false,
+                });
+                splide2.mount();
             },
 
             intervalTime(){
                 const date = new Date()
+                date.toLocaleString('en-US', { timeZone: 'America/Monterrey' })
                 const splitTime = date.toTimeString().substring(0, 8).split(":")
                 this.horaActual = {
-                    h: splitTime[0],
+                    h: splitTime[0] - 1,
                     m: splitTime[1],
                     s: splitTime[2],
                     p: date.getHours() >= 12 ? 'pm' : 'am'
@@ -135,20 +185,22 @@
                 this.flvPlayer.play();
             },
 
-            async loadClima () {
+            async loadClima(){
                 const data = await fetch('https://openweathermap.org/data/2.5/onecall?lat=25.6667&lon=-100.3167&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02')
                 const dataJSON = await data.json()
                 let current = dataJSON.current, 
                     dayData = dataJSON.daily.find(t => t.sunrise === dataJSON.current.sunrise)
 
-                console.log(current, dayData)
+                this.climate = {
+                    current, dayData
+                }
             },
 
             loadVideo(b = false){
                 this.flvPlayer = flvjs.createPlayer({
                     type: 'flv',
                     isLive: true,
-                    url: 'http://192.168.0.185:8000/livestream/{{id}}.flv?sign=1679520158487-f6401545762a9149239f66d527cf3060'
+                    url: 'http://localhost:8000/livestream/{{id}}.flv?sign=1679520158487-f6401545762a9149239f66d527cf3060'
                 }, {
                     //autoCleanupSourceBuffer: true,
                 })
@@ -172,3 +224,9 @@
         }));
     });
 </script>
+
+<style>
+    .clima::after{
+        content: '°';
+    }
+</style>

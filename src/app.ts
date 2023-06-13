@@ -24,4 +24,4 @@ initMongoDB(() => {
 
 initMediaServer().run();
 
-payVideos()
+payVideos();
